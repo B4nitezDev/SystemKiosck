@@ -1,0 +1,4 @@
+﻿.env.development
+.env.production
+*/idea/
+*/node_modules
