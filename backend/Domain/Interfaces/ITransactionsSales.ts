@@ -1,4 +1,4 @@
-﻿import { TransactionsState } from "../Enums/TransactionsState";
+﻿import { TransactionsShoppingState } from "../Enums/TransactionsShoppingState";
 
 export interface ITransactionsSales {
   id: number;
@@ -7,7 +7,7 @@ export interface ITransactionsSales {
   employeeId: number;
   detail: string;
   total: number;
-  status: TransactionsState;
+  status: TransactionsShoppingState;
   createdAt?: Date;
   updatedAt?: Date;
   createdBy?: number;

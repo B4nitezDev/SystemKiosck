@@ -1,6 +1,7 @@
-﻿import { DataTypes, Model, Optional } from "sequelize";
-import { DbContext } from "../Config/database";
+﻿import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { EmployeeModel } from "./EmployeeModel";
+import { PurchaseOrdersModel } from "./PurchaseOrdersModel";
+import { ProductModel } from "./ProductModel";
 
 interface KioskAttributes {
   id: number;
@@ -11,7 +12,7 @@ interface KioskAttributes {
   email?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  updateBy?: number;
+  updatedBy?: number;
   createBy?: number;
 }
 
@@ -27,14 +28,16 @@ export class KioskModel extends Model<KioskAttributes, KioskCreationAttributes>
   public email?: string;
   public createdAt?: Date;
   public updatedAt?: Date;
-  public updateBy?: number;
+  public updatedBy?: number;
   public createBy?: number;
 
   // Relaciones
   public readonly employees?: EmployeeModel[];
+  public readonly purchaseOrders?: PurchaseOrdersModel[];
+  public readonly Products?: ProductModel[];
 }
 
-export const initKioskModel = () => {
+export const initKioskModel: (sequelize: Sequelize) => void = (sequelize: Sequelize) => {
   KioskModel.init(
     {
       id: {
@@ -66,7 +69,7 @@ export const initKioskModel = () => {
       updatedAt: {
         type: DataTypes.DATE,
       },
-      updateBy: {
+      updatedBy: {
         type: DataTypes.INTEGER,
       },
       createBy: {
@@ -75,7 +78,7 @@ export const initKioskModel = () => {
     },
     {
       tableName: "Kiosks",
-      sequelize: DbContext,
+      sequelize,
     }
   );
 };

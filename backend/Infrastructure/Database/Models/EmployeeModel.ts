@@ -1,5 +1,4 @@
-﻿import { DataTypes, Model, Optional } from "sequelize";
-import { DbContext } from "../Config/database";
+﻿import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import { KioskModel } from "./KioskModel";
 
 interface EmployeeAttributes {
@@ -46,7 +45,7 @@ export class EmployeeModel extends Model<EmployeeAttributes, EmployeeCreationAtt
   public readonly kiosk?: KioskModel;
 }
 
-export const initEmployeeModel = () => {
+export const initEmployeeModel: (sequelize: Sequelize)  => void = (sequelize: Sequelize) => {
   EmployeeModel.init(
     {
       id: {
@@ -89,6 +88,12 @@ export const initEmployeeModel = () => {
       kioskId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: KioskModel,
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "NO ACTION"
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -106,7 +111,7 @@ export const initEmployeeModel = () => {
     },
     {
       tableName: "Employees",
-      sequelize: DbContext,
+      sequelize,
     }
   );
 };

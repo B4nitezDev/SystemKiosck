@@ -13,6 +13,7 @@ export class Kiosk extends BaseEntity {
   public UsersList: number[] = [];
   public ProductsList: number[] = [];
   public ReceiptsId: number[] = [];
+  public ProviderList: number[] = [];
   public audit: AuditTrail;
 
   private constructor(props : IKiosk) {
