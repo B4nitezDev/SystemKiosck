@@ -1,6 +1,7 @@
 ﻿import { MapperAdapter } from "./types/MapperAdapter";
+import { IMapper } from "./Interfaces/IUserMapper";
 
-export class GenericMapper<TSource, TDestination> {
+export class GenericMapper<TSource, TDestination> implements IMapper<TSource, TDestination> {
   constructor(
     private adapters: MapperAdapter<TSource, TDestination> = {}
   ) {

@@ -1,5 +1,7 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./"
