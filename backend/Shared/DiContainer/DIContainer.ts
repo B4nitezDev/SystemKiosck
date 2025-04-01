@@ -1,47 +1,59 @@
 ﻿import "reflect-metadata";
 
-type Constructor<T = any> = new (...args: any[]) => T;
-type ConstructorOrFactory<T> = Constructor<T> | (() => T);
+export type Constructor<T> = new (...args: any[]) => T;
+export type Token<T> = symbol;
+export type Factory<T> = (...args: any[]) => T;
+export type Implements<T> = {
+  new (...args: any[]): T;
+};
 
 export class DIContainer {
-  private registrations: Map<symbol, ConstructorOrFactory<any>> = new Map<symbol, ConstructorOrFactory<any>>();
-  private singletons: Map<symbol, any> = new Map<symbol, any>();
+  private instances: Map<any, any> = new Map<any, any>();
+  private registrations = new Map<any, {
+    deps: any[];
+    resolver: (...args: any[]) => any;
+  }>();
 
-  register<T>(token: symbol, resolver: ConstructorOrFactory<T>) {
-    this.registrations.set(token, resolver);
+  public registerClass<T>(token: any, classRef: Implements<T>, deps: any[] = []) {
+    this.registrations.set(token, {
+      deps,
+      resolver: (...args: any[]) => new classRef(...args),
+    });
   }
 
-  resolve<T>(token: symbol): T {
-    if (this.singletons.has(token))
-      return this.singletons.get(token);
+  public registerFactory<T>(token: any, factory: Factory<T>, deps: any[] = []) {
+    this.registrations.set(token, {
+      deps,
+      resolver: (...args: any[]) => factory(...args),
+    });
+  }
 
-    const resolver: ConstructorOrFactory<any> | undefined = this.registrations.get(token);
-
-    if (!resolver)
-      throw new Error(`No dependency found for ${token.toString()}`);
-
-    let instance: any;
-
-    if (this.isConstructor(resolver)) {
-      const paramTypes: Constructor[] = Reflect.getMetadata("design:paramtypes", resolver) || [];
-
-      const dependencies: unknown[] = paramTypes.map((depType: Constructor<any>) => {
-        const tokenEntry: [symbol, ConstructorOrFactory<any>] | undefined = [...this.registrations.entries()].find(([_, value]) => value === depType);
-        if (!tokenEntry) throw new Error(`Unregistered dependency: ${depType.name}`);
-        return this.resolve(tokenEntry[0]);
-      });
-
-      instance = new resolver(...dependencies);
-    } else {
-      instance = (resolver as () => T)();
+  public resolve<T>(token: any, resolvingStack: any[] = []): T {
+    if (this.instances.has(token)) {
+      return this.instances.get(token);
     }
 
-    this.singletons.set(token, instance);
+    if (resolvingStack.includes(token)) {
+      const cycle = [...resolvingStack, token].map(t => this.getTokenName(t)).join(" -> ");
+      throw new Error(`Circular dependency detected: ${cycle}`);
+    }
+
+    const registration = this.registrations.get(token);
+    if (!registration) {
+      throw new Error(`Token not registered`);
+    }
+
+    resolvingStack.push(token);
+    const resolvedDeps = registration.deps.map(dep => this.resolve(dep, resolvingStack));
+    resolvingStack.pop();
+
+    const instance = registration.resolver(...resolvedDeps);
+    this.instances.set(token, instance);
     return instance;
   }
 
-  private isConstructor<T>(resolver: ConstructorOrFactory<T>): resolver is Constructor<T> {
-    return typeof resolver === "function" && resolver.prototype && resolver.prototype.constructor.name !== "Object";
+  private getTokenName(token: any): string {
+    return typeof token === 'function' ? token.name : String(token);
   }
 }
 
