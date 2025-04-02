@@ -91,6 +91,9 @@ export const initPurchaseOrdersModel: (sequelize: Sequelize) => void = (sequeliz
     },
   },{
     tableName: "PurchaseOrders",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }

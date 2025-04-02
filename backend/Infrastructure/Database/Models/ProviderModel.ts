@@ -83,6 +83,9 @@ export const initProvider: (sequelize: Sequelize) => void = (sequelize: Sequeliz
     },
   },{
     tableName: "Providers",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }

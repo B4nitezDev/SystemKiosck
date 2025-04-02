@@ -71,6 +71,9 @@ export const initOrderDetailModel: (sequelize: Sequelize) => void = (sequelize: 
     }
   },{
     tableName: "OrderDetails",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }

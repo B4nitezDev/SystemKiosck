@@ -1,6 +1,6 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { ICurrentInventory } from "../Interfaces/ICurrentInventory";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { CurrentInventoryInterface } from "../Interfaces/current-inventory.interface";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 
 export class CurrentInventory extends BaseEntity {
@@ -9,16 +9,16 @@ export class CurrentInventory extends BaseEntity {
   public currentStock: number;
   public minStock: number;
   public lastUpdate: Date;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: ICurrentInventory) {
+  protected constructor(props: CurrentInventoryInterface) {
     super(props.id);
     this.kioskId = props.kioskId;
     this.productId = props.productId;
     this.currentStock = props.currentStock;
     this.minStock = props.minStock;
     this.lastUpdate = props.lastUpdate;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -26,7 +26,7 @@ export class CurrentInventory extends BaseEntity {
     })
   }
 
-  public static Create(props: ICurrentInventory): CurrentInventory {
+  public static Create(props: CurrentInventoryInterface): CurrentInventory {
     const errors = this.Validate(props);
 
     if(errors.length > 0){
@@ -41,11 +41,11 @@ export class CurrentInventory extends BaseEntity {
     return new CurrentInventory(props);
   }
 
-  public static FromPersistence(props: ICurrentInventory): CurrentInventory {
+  public static FromPersistence(props: CurrentInventoryInterface): CurrentInventory {
     return new CurrentInventory(props);
   }
 
-  public static Validate(props: ICurrentInventory): string[] {
+  public static Validate(props: CurrentInventoryInterface): string[] {
     const errors: string[] = [];
 
     return errors;

@@ -111,7 +111,10 @@ export const initEmployeeModel: (sequelize: Sequelize)  => void = (sequelize: Se
     },
     {
       tableName: "Employees",
+      paranoid: true,
+      deletedAt: "deletedAt",
       sequelize,
+      version: true
     }
   );
 };

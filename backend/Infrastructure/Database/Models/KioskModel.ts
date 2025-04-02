@@ -78,7 +78,10 @@ export const initKioskModel: (sequelize: Sequelize) => void = (sequelize: Sequel
     },
     {
       tableName: "Kiosks",
+      paranoid: true,
+      deletedAt: "deletedAt",
       sequelize,
+      version: true
     }
   );
 };

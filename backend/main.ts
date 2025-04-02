@@ -1,25 +1,21 @@
 ﻿import { App } from "./Presentation/app";
 import { initializeDatabase } from "./Infrastructure/Database";
 import { container } from "./Shared/DiContainer/DIContainer";
-import { userMapper } from "./Shared/Mappers/adapters/UserMapper";
-import { TYPES } from "./Shared/DiContainer/Tokens/Mappers/UserMapper.token";
 import { Express } from "express";
-import { EmployeeController, IEmployeeController } from "./Presentation/Controller/EmployeeController";
-import { IndexRoutes } from "./Presentation/Routes/index.routes";
+import { AddRoutesRegister } from "./Shared/DiContainer/registers/add-routes.register";
+import { AddControllersRegister } from "./Shared/DiContainer/registers/add-controllers.register";
+import { AddServicesRegister } from "./Shared/DiContainer/registers/add-services.register";
+import { AddMappersRegister } from "./Shared/DiContainer/registers/add-mappers.register";
+import { AddRepositoriesRegister } from "./Shared/DiContainer/registers/add-repositories.register";
 
 (async (): Promise<void> => {
   console.log("Initializing services...");
 
-  //Mappers
-  container.registerFactory(TYPES.IUSER_MAPPER, () => userMapper);
-
-  // Controllers
-  container.registerClass<IEmployeeController>(EmployeeController, EmployeeController);
-
-  // Services
-
-  // Routes
-  container.registerClass(IndexRoutes, IndexRoutes, [EmployeeController]);
+  AddRepositoriesRegister.addRepositories(container);
+  AddMappersRegister.AddMappers(container);
+  AddServicesRegister.addServices(container);
+  AddControllersRegister.addControllers(container);
+  AddRoutesRegister.addRoutes(container);
 
   console.log("Starting server...");
 

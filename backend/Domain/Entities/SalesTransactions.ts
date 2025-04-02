@@ -1,5 +1,5 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class SalesTransactions extends BaseEntity {
   public date: Date;
@@ -7,7 +7,7 @@ export class SalesTransactions extends BaseEntity {
   public employeeId: number;
   public detail: string;
   public total: number;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
   protected constructor(props: any) {
     super(props.id);
@@ -17,7 +17,7 @@ export class SalesTransactions extends BaseEntity {
     this.employeeId = props.employeeId;
     this.detail = props.detail;
     this.total = props.total;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,

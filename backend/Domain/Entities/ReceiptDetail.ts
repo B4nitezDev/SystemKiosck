@@ -1,23 +1,23 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IReceiptDetail } from "../Interfaces/IReceiptDetail";
-import { Quantity } from "../VOs/Quantity";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { ReceiptDetail } from "../Interfaces/receipt-detail";
+import { QuantityVo } from "../VOs/quantity.vo";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class ReceiptDetail extends BaseEntity {
   public receiptId: number;
   public productId: number;
-  public quantity: Quantity;
+  public quantity: QuantityVo;
   public observation?: string;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: IReceiptDetail) {
+  protected constructor(props: ReceiptDetail) {
     super(props.id);
 
     this.receiptId = props.receiptId;
     this.productId = props.productId;
-    this.quantity = Quantity.Create(props.quantity);
+    this.quantity = QuantityVo.Create(props.quantity);
     this.observation = props.observation;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -25,7 +25,7 @@ export class ReceiptDetail extends BaseEntity {
     })
   }
 
-  public static Create(props: IReceiptDetail): ReceiptDetail {
+  public static Create(props: ReceiptDetail): ReceiptDetail {
     const errors = this.validate(props);
 
     if(errors.length > 0){
@@ -40,11 +40,11 @@ export class ReceiptDetail extends BaseEntity {
     return new ReceiptDetail(props);
   }
 
-  public static FromPersistence(props: IReceiptDetail): ReceiptDetail {
+  public static FromPersistence(props: ReceiptDetail): ReceiptDetail {
     return new ReceiptDetail(props);
   }
 
-  public static validate(props: IReceiptDetail): string[] {
+  public static validate(props: ReceiptDetail): string[] {
     const errors: string[] = [];
 
     return errors;

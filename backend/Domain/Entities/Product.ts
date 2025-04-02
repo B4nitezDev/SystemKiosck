@@ -1,6 +1,6 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IProduct } from "../Interfaces/IProduct";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { ProductInterface } from "../Interfaces/product.interface";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class Product extends BaseEntity {
   public name: string;
@@ -9,9 +9,9 @@ export class Product extends BaseEntity {
   public KioskId: number;
   public orderDetailId: number[];
   public receiptDetailId: number[];
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: IProduct) {
+  protected constructor(props: ProductInterface) {
     super(props.id);
     this.name = props.name;
     this.description = props.description;
@@ -19,7 +19,7 @@ export class Product extends BaseEntity {
     this.KioskId = props.KioskId;
     this.orderDetailId = props.orderDetailId ?? [];
     this.receiptDetailId = props.receiptDetailId ?? [];
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdAt: props.createdAt,
       createdBy: props.createdBy,
       updatedAt: props.updatedAt,
@@ -27,7 +27,7 @@ export class Product extends BaseEntity {
     })
   }
 
-  public static Create(props: IProduct): Product {
+  public static Create(props: ProductInterface): Product {
     const errors = this.Validate(props);
 
     if(errors.length > 0){
@@ -42,11 +42,11 @@ export class Product extends BaseEntity {
     return new Product(props);
   }
 
-  public static FromPersistence(props: IProduct): Product {
+  public static FromPersistence(props: ProductInterface): Product {
     return new Product(props);
   }
 
-  public static Validate(props: IProduct): string[] {
+  public static Validate(props: ProductInterface): string[] {
     const errors: string[] = [];
 
     return errors;

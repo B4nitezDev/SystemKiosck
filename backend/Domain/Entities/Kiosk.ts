@@ -1,37 +1,37 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IKiosk } from "../Interfaces/IKiosk";
-import { PhoneNumber } from "../VOs/PhoneNumber";
-import { Email } from "../VOs/Email";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { KioskInterface } from "../Interfaces/kiosk.interface";
+import { PhoneNumberVo } from "../VOs/phone-number.vo";
+import { EmailVo } from "../VOs/email.vo";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class Kiosk extends BaseEntity {
   public name: string;
   public address?: string | null;
   public description?: string | null;
-  public phone?: PhoneNumber;
-  public email?: Email
+  public phone?: PhoneNumberVo;
+  public email?: EmailVo
   public UsersList: number[] = [];
   public ProductsList: number[] = [];
   public ReceiptsId: number[] = [];
   public ProviderList: number[] = [];
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  private constructor(props : IKiosk) {
+  private constructor(props : KioskInterface) {
     super(props.id);
 
     this.name = props.name;
     this.address = props.address;
     this.description = props.description;
     this.email = props.email
-      ? Email.Create(props.email)
+      ? EmailVo.Create(props.email)
       : undefined;
     this.phone = props.phone
-      ? PhoneNumber.Create(props.phone)
+      ? PhoneNumberVo.Create(props.phone)
       : undefined;
     this.UsersList = props.UsersList;
     this.ProductsList = props.ProductsList;
     this.ReceiptsId = props.ReceiptsId;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -39,7 +39,7 @@ export class Kiosk extends BaseEntity {
     })
   }
 
-  public static Create(props: IKiosk): Kiosk {
+  public static Create(props: KioskInterface): Kiosk {
     const { name, address, description, email, phone, id = -1, ProductsList = [], UsersList = [], ReceiptsId = [] } = props;
 
     const errors: string[] = this.Validate(props);
@@ -56,11 +56,11 @@ export class Kiosk extends BaseEntity {
     return new Kiosk({ id, name, address, description, email, phone, ProductsList, UsersList, ReceiptsId });
   }
 
-  public static FromPersistence(props: IKiosk): Kiosk {
+  public static FromPersistence(props: KioskInterface): Kiosk {
     return new Kiosk(props);
   }
 
-  private static Validate({email, name, phone}: IKiosk): string[]{
+  private static Validate({email, name, phone}: KioskInterface): string[]{
     const errors: string[] = [];
 
     if(email === null && phone === null){

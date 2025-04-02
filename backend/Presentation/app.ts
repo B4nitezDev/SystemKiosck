@@ -5,7 +5,7 @@ import { IndexRoutes } from "./Routes/index.routes";
 export abstract class App {
   private static app: Express | null = null;
 
-  constructor() {}
+  public constructor() {}
 
   private static build(): Express {
     this.app = express();
@@ -13,7 +13,6 @@ export abstract class App {
     const indexRoutes: unknown = container.resolve(IndexRoutes);
     // @ts-ignore
     this.app.use("/api", indexRoutes.routes);
-
 
     return this.app;
   }

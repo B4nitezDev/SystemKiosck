@@ -85,6 +85,9 @@ export const initCurrentInventory: (sequelize: Sequelize) => void = (sequelize: 
     },
   }, {
     tableName: "CurrentInventories",
-    sequelize
+    paranoid: true,
+    deletedAt: "deletedAt",
+    sequelize,
+    version: true,
   })
 }

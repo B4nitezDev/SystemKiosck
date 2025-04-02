@@ -1,21 +1,21 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IEmployee } from "../Interfaces/Employee";
-import { Email } from "../VOs/Email";
-import { PhoneNumber } from "../VOs/PhoneNumber";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { IEmployee } from "../Interfaces/employee.interface";
+import { EmailVo } from "../VOs/email.vo";
+import { PhoneNumberVo } from "../VOs/phone-number.vo";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class Employee extends BaseEntity {
   public name: string;
   public lastName?: string;
   public fistName?: string;
-  public email?: Email;
-  public phone?: PhoneNumber;
+  public email?: EmailVo;
+  public phone?: PhoneNumberVo;
   public address?: string;
   public initialDate?: Date;
   public finalDate?: Date;
   public turn?: string;
   public password: string;
-  public audit: AuditTrail
+  public audit: AuditTrailVo
   public kioskId: number;
 
   protected constructor(props: IEmployee){
@@ -25,10 +25,10 @@ export class Employee extends BaseEntity {
     this.lastName = props.lastName;
     this.fistName = props.fistName;
     this.email = props.email
-        ? Email.Create(props.email)
+        ? EmailVo.Create(props.email)
         : undefined;
     this.phone = props.phone
-        ? PhoneNumber.Create(props.phone)
+        ? PhoneNumberVo.Create(props.phone)
         : undefined;
     this.address = props.address;
     this.initialDate = props.initialDate;
@@ -36,7 +36,7 @@ export class Employee extends BaseEntity {
     this.turn = props.turn;
     this.password = props.password;
     this.kioskId = props.kioskId;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,

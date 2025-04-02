@@ -86,6 +86,9 @@ export const initSalesTransactionsModel: (sequelize: Sequelize) => void = (seque
     }
   }, {
     tableName: "SalesTransactions",
-    sequelize
+    paranoid: true,
+    deletedAt: "deletedAt",
+    sequelize,
+    version: true
   })
 }

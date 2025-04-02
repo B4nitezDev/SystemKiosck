@@ -1,25 +1,25 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IOrderDetail } from "../Interfaces/IOrderDetail";
-import { Quantity } from "../VOs/Quantity";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { IOrderDetail } from "../Interfaces/order-detail.interface";
+import { QuantityVo } from "../VOs/quantity.vo";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class OrderDetail extends BaseEntity {
   public orderId: number;
   public productId: number;
-  public quantity: Quantity;
+  public quantity: QuantityVo;
   public unitPrice: number;
   public total: number;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
   protected constructor(props: IOrderDetail) {
     super(props.id);
 
     this.orderId = props.orderId
     this.productId = props.productId;
-    this.quantity = Quantity.Create(props.quantity);
+    this.quantity = QuantityVo.Create(props.quantity);
     this.unitPrice = props.unitPrice;
     this.total = props.total;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,

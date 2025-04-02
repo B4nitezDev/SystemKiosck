@@ -1,7 +1,7 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { ITransactionsSales } from "../Interfaces/ITransactionsSales";
+import { TransactionsSales } from "../Interfaces/transactions-sales";
 import { TransactionsShoppingState } from "../Enums/TransactionsShoppingState";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class TransactionsShopping extends BaseEntity {
   public date: Date;
@@ -10,9 +10,9 @@ export class TransactionsShopping extends BaseEntity {
   public detail: string;
   public total: number;
   public status: TransactionsShoppingState;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: ITransactionsSales) {
+  protected constructor(props: TransactionsSales) {
     super(props.id);
 
     this.date = props.date;
@@ -21,7 +21,7 @@ export class TransactionsShopping extends BaseEntity {
     this.detail = props.detail;
     this.total = props.total;
     this.status = props.status;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -29,7 +29,7 @@ export class TransactionsShopping extends BaseEntity {
     })
   }
 
-  public static Create(props: ITransactionsSales): TransactionsShopping {
+  public static Create(props: TransactionsSales): TransactionsShopping {
     const errors = this.Validate(props);
     if(errors.length > 0){
       throw new Error(JSON.stringify(
@@ -43,11 +43,11 @@ export class TransactionsShopping extends BaseEntity {
     return new TransactionsShopping(props);
   }
 
-  public static FromPersistence(props: ITransactionsSales): TransactionsShopping {
+  public static FromPersistence(props: TransactionsSales): TransactionsShopping {
     return new TransactionsShopping(props);
   }
 
-  public static Validate(props: ITransactionsSales): string[] {
+  public static Validate(props: TransactionsSales): string[] {
     const errors: string[] = [];
 
     return errors;

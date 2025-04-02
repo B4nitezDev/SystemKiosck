@@ -1,8 +1,8 @@
 ﻿import { DbContext } from "./Config/database";
 import { initKioskModel } from "./Models/KioskModel";
 import { initEmployeeModel } from "./Models/EmployeeModel";
-import { AssociateModels } from "./associateModels";
-import { initCurrentInventory } from "./Models/CurrentInventory";
+import { AssociateModels } from "./associate-models";
+import { initCurrentInventory } from "./Models/CurrentInventory.model";
 import { initInventoryMovement } from "./Models/InventoryMovementModel";
 import { initOrderDetailModel } from "./Models/OrderDetailModel";
 import { initProductModel } from "./Models/ProductModel";

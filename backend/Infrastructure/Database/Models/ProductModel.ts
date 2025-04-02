@@ -75,6 +75,9 @@ export const initProductModel: (sequelize: Sequelize) => void = (sequelize: Sequ
     }
   },{
     tableName: "Products",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }

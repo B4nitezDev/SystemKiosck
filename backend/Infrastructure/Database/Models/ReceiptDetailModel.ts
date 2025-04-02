@@ -67,7 +67,10 @@ export const initReceiptDetailModel: (sequelize: Sequelize) => void = (sequelize
     }
   }, {
     tableName: "ReceiptDetails",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }
 

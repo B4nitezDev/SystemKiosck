@@ -1,31 +1,31 @@
 ﻿import { BaseEntity } from "./BaseEntity";
-import { IProvider } from "../Interfaces/IProvider";
-import { PhoneNumber } from "../VOs/PhoneNumber";
-import { Email } from "../VOs/Email";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { ProviderInterface } from "../Interfaces/provider.interface";
+import { PhoneNumberVo } from "../VOs/phone-number.vo";
+import { EmailVo } from "../VOs/email.vo";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class Provider extends BaseEntity {
   public name: string;
   public description?: string;
   public address?: string;
-  public phone?: PhoneNumber;
-  public email?: Email;
+  public phone?: PhoneNumberVo;
+  public email?: EmailVo;
   public kioskId: number;
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: IProvider) {
+  protected constructor(props: ProviderInterface) {
     super(props.id);
     this.name = props.name;
     this.description = props.description;
     this.address = props.address;
     this.phone = props.phone
-        ? PhoneNumber.Create(props.phone)
+        ? PhoneNumberVo.Create(props.phone)
         : undefined;
     this.email = props.email
-        ? Email.Create(props.email)
+        ? EmailVo.Create(props.email)
         : undefined;
     this.kioskId = props.kioskId;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -33,7 +33,7 @@ export class Provider extends BaseEntity {
     })
   }
 
-  public static Create (props: IProvider): Provider {
+  public static Create (props: ProviderInterface): Provider {
     const errors = this.Validate(props);
 
     if(errors.length > 0){
@@ -48,11 +48,11 @@ export class Provider extends BaseEntity {
     return new Provider(props);
   }
 
-  public static FromPersistence(props: IProvider): Provider {
+  public static FromPersistence(props: ProviderInterface): Provider {
     return new Provider(props);
   }
 
-  public static Validate(props: IProvider): string[] {
+  public static Validate(props: ProviderInterface): string[] {
     const errors: string[] = [];
 
     return errors;

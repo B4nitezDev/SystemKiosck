@@ -92,6 +92,9 @@ export const initTransactionsShopping: (sequelize: Sequelize) => void = (sequeli
     }
   }, {
     tableName: "TransactionsShopping",
-    sequelize
+    paranoid: true,
+    deletedAt: "deletedAt",
+    sequelize,
+    version: true
   })
 }

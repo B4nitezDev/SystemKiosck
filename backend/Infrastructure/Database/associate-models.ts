@@ -5,7 +5,7 @@ import { PurchaseOrdersModel } from "./Models/PurchaseOrdersModel";
 import { OrderDetailModel } from "./Models/OrderDetailModel";
 import { ReceiptModel } from "./Models/ReceiptModel";
 import { ReceiptDetailModel } from "./Models/ReceiptDetailModel";
-import { CurrentInventoryModel } from "./Models/CurrentInventory";
+import { CurrentInventoryModel } from "./Models/CurrentInventory.model";
 import { InventoryMovementsModel } from "./Models/InventoryMovementModel";
 import { ProviderModel } from "./Models/ProviderModel";
 import { TransactionsShoppingModel } from "./Models/TransactionsShopping";
