@@ -11,6 +11,7 @@ export class Employee extends BaseEntity {
   public email?: EmailVo;
   public phone?: PhoneNumberVo;
   public address?: string;
+  public dni?: string;
   public initialDate?: Date;
   public finalDate?: Date;
   public turn?: string;
@@ -31,6 +32,7 @@ export class Employee extends BaseEntity {
         ? PhoneNumberVo.Create(props.phone)
         : undefined;
     this.address = props.address;
+    this.dni = props.dni;
     this.initialDate = props.initialDate;
     this.finalDate = props.finalDate;
     this.turn = props.turn;

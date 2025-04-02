@@ -9,6 +9,7 @@ export class Product extends BaseEntity {
   public KioskId: number;
   public orderDetailId: number[];
   public receiptDetailId: number[];
+  public skuCode: string;
   public audit: AuditTrailVo;
 
   protected constructor(props: ProductInterface) {
@@ -19,6 +20,7 @@ export class Product extends BaseEntity {
     this.KioskId = props.KioskId;
     this.orderDetailId = props.orderDetailId ?? [];
     this.receiptDetailId = props.receiptDetailId ?? [];
+    this.skuCode = props.skuCode;
     this.audit = AuditTrailVo.create({
       createdAt: props.createdAt,
       createdBy: props.createdBy,

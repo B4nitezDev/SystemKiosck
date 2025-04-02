@@ -13,6 +13,7 @@ interface ProductAttributes {
   createdBy?: number;
   updatedBy?: number;
   kioskId?: number;
+  skuCode: string;
 }
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
@@ -20,6 +21,7 @@ interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
 export class ProductModel extends Model<ProductAttributes, ProductCreationAttributes> implements  ProductAttributes{
   public id!: number;
   public name!: string;
+  public skuCode!: string;
   public description?: string;
   public price!: number;
   public kioskId?: number;
@@ -54,6 +56,10 @@ export const initProductModel: (sequelize: Sequelize) => void = (sequelize: Sequ
       type: DataTypes.STRING,
       allowNull: false,
     },
+    skuCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     description: {
       type: DataTypes.STRING,
     },
@@ -78,6 +84,15 @@ export const initProductModel: (sequelize: Sequelize) => void = (sequelize: Sequ
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['skuCode', 'kioskId']
+      },
+      {
+        fields: ['name', 'createdAt']
+      }
+    ]
   })
 }

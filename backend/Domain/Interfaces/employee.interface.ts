@@ -5,6 +5,7 @@
   fistName?: string;
   email?: string;
   phone?: string;
+  dni?: string;
   address?: string;
   initialDate?: Date;
   finalDate?: Date;

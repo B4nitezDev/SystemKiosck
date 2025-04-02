@@ -9,6 +9,8 @@ export class Receipt extends BaseEntity {
   public kioskId: number;
   public status: ReceiptStatus;
   public receiptDetails: number[];
+  public receiptKey?: string;
+  public externalReceiptKey?: string;
   public audit: AuditTrailVo;
 
   protected constructor(props: ReceiptInterface) {
@@ -19,6 +21,8 @@ export class Receipt extends BaseEntity {
     this.kioskId = props.kioskId;
     this.status = props.status;
     this.receiptDetails = props.receiptDetails;
+    this.receiptKey = props.receiptKey;
+    this.externalReceiptKey = props.externalReceiptKey;
     this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,

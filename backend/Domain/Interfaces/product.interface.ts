@@ -11,4 +11,5 @@ export interface ProductInterface {
   updatedAt?: Date;
   createdBy?: number;
   updatedBy?: number;
+  skuCode: string;
 }

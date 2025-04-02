@@ -94,6 +94,12 @@ export const initPurchaseOrdersModel: (sequelize: Sequelize) => void = (sequeliz
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["kioskId", 'providerId']
+      }
+    ]
   })
 }

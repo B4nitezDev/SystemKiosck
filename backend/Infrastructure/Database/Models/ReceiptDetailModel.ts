@@ -70,7 +70,13 @@ export const initReceiptDetailModel: (sequelize: Sequelize) => void = (sequelize
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["receiptId", "productId"]
+      }
+    ]
   })
 }
 

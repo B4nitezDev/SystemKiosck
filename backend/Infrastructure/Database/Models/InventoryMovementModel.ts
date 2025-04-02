@@ -92,6 +92,12 @@ export const initInventoryMovement: (sequelize: Sequelize) => void = (sequelize:
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["productId", "kioskId", "createdAt"]
+      }
+    ]
   })
 }

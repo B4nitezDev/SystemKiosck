@@ -11,4 +11,6 @@ export interface ReceiptInterface {
   updatedAt?: Date;
   createdBy?: number;
   updatedBy?: number;
+  receiptKey?: string;
+  externalReceiptKey?: string;
 }

@@ -8,6 +8,8 @@ interface ReceiptAttributes {
   id: number;
   status: ReceiptStatus;
   purchaseOrderId: number;
+  receiptKey?: string;
+  externalReceiptKey?: string;
   kioskId: number;
   receiptDate: Date;
   createdAt?: Date;
@@ -21,6 +23,8 @@ interface ReceiptCreationAttributes extends Optional<ReceiptAttributes, "id"> {}
 export class ReceiptModel extends Model<ReceiptAttributes, ReceiptCreationAttributes> implements ReceiptAttributes {
   public id!: number;
   public receiptDate!: Date;
+  public receiptKey?: string;
+  public externalReceiptKey?: string;
   public purchaseOrderId!: number;
   public kioskId!: number;
   public status!: ReceiptStatus;
@@ -40,6 +44,14 @@ export const initReceiptModel: (sequelize: Sequelize) => void = (sequelize: Sequ
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    receiptKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    externalReceiptKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     purchaseOrderId: {
       type: DataTypes.INTEGER,
@@ -85,6 +97,23 @@ export const initReceiptModel: (sequelize: Sequelize) => void = (sequelize: Sequ
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["receiptKey", "externalReceiptKey"]
+      },
+      {
+        unique: true,
+        fields: ["purchaseOrderId"]
+      },
+      {
+        unique: true,
+        fields: ["kioskId"]
+      },
+      {
+        fields: ['status', 'receiptDate']
+      }
+    ]
   })
 }

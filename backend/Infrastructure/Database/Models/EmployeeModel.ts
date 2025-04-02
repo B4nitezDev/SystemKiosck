@@ -9,6 +9,7 @@ interface EmployeeAttributes {
   email?: string;
   phone?: string;
   address?: string;
+  dni?: string;
   initialDate?: Date;
   finalDate?: Date;
   turn?: string;
@@ -31,6 +32,7 @@ export class EmployeeModel extends Model<EmployeeAttributes, EmployeeCreationAtt
   public email?: string;
   public phone?: string;
   public address?: string;
+  public dni?: string;
   public initialDate?: Date;
   public finalDate?: Date;
   public turn?: string;
@@ -71,6 +73,11 @@ export const initEmployeeModel: (sequelize: Sequelize)  => void = (sequelize: Se
       },
       address: {
         type: DataTypes.STRING,
+      },
+      dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
       initialDate: {
         type: DataTypes.DATE,
@@ -114,7 +121,13 @@ export const initEmployeeModel: (sequelize: Sequelize)  => void = (sequelize: Se
       paranoid: true,
       deletedAt: "deletedAt",
       sequelize,
-      version: true
+      version: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ["dni", "kioskId"]
+        }
+      ]
     }
   );
 };

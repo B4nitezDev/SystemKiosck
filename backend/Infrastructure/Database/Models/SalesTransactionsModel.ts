@@ -89,6 +89,15 @@ export const initSalesTransactionsModel: (sequelize: Sequelize) => void = (seque
     paranoid: true,
     deletedAt: "deletedAt",
     sequelize,
-    version: true
+    version: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["kioskId", 'employeeId']
+      },
+      {
+        fields: ['date']
+      }
+    ]
   })
 }
