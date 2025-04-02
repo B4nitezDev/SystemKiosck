@@ -1,4 +1,4 @@
-﻿export class AuditTrail {
+﻿export class AuditTrailVo {
 
   private constructor(
     public readonly createdAt: Date,
@@ -13,8 +13,8 @@
     updatedAt?: Date;
     createdBy?: number;
     updatedBy?: number;
-  }): AuditTrail {
-    return new AuditTrail(
+  }): AuditTrailVo {
+    return new AuditTrailVo(
       props.createdAt ?? new Date(),
       props.createdBy,
       props.updatedAt,

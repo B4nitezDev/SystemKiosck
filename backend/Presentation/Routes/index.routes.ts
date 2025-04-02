@@ -1,17 +1,15 @@
 ﻿import { Router, Request, Response } from "express";
 import { EmployeeController } from "../Controller/EmployeeController";
+import { EmployeeRoutes } from "./employee.routes";
 
 export class IndexRoutes {
   public routes: Router = Router();
 
-  constructor(private employeeController: EmployeeController) {
-    this.init();
+  constructor(private employeeRoutes: EmployeeRoutes) {
+    this.configRoutes();
   }
 
-  init() {
-    this.routes.get("/users", (req, res, next) => {
-      this.employeeController.getAllEmployees(req, res).catch(next);
-    });
-
+  private configRoutes(): void {
+    this.routes.use('/api/employees', this.employeeRoutes.routes);
   }
 }

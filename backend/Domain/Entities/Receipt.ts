@@ -1,7 +1,7 @@
 ﻿import { BaseEntity } from "./BaseEntity";
 import { ReceiptStatus } from "../Enums/ReceiptStatus";
-import { IReceipt } from "../Interfaces/IReceipt";
-import { AuditTrail } from "../VOs/AuditTrail";
+import { ReceiptInterface } from "../Interfaces/receipt.interface";
+import { AuditTrailVo } from "../VOs/audit-trail.vo";
 
 export class Receipt extends BaseEntity {
   public receiptDate: Date;
@@ -9,9 +9,9 @@ export class Receipt extends BaseEntity {
   public kioskId: number;
   public status: ReceiptStatus;
   public receiptDetails: number[];
-  public audit: AuditTrail;
+  public audit: AuditTrailVo;
 
-  protected constructor(props: IReceipt) {
+  protected constructor(props: ReceiptInterface) {
     super(props.id);
 
     this.receiptDate = props.receiptDate;
@@ -19,7 +19,7 @@ export class Receipt extends BaseEntity {
     this.kioskId = props.kioskId;
     this.status = props.status;
     this.receiptDetails = props.receiptDetails;
-    this.audit = AuditTrail.create({
+    this.audit = AuditTrailVo.create({
       createdBy: props.createdBy,
       createdAt: props.createdAt,
       updatedBy: props.updatedBy,
@@ -27,7 +27,7 @@ export class Receipt extends BaseEntity {
     })
   }
 
-  public static Create(props: IReceipt): Receipt {
+  public static Create(props: ReceiptInterface): Receipt {
     const errors: string[] = this.Validate(props);
     if(errors.length > 0){
       throw new Error(JSON.stringify(
@@ -41,11 +41,11 @@ export class Receipt extends BaseEntity {
     return new Receipt(props);
   }
 
-  public static FromPersistence(props: IReceipt): Receipt {
+  public static FromPersistence(props: ReceiptInterface): Receipt {
     return new Receipt(props);
   }
 
-  public static Validate(props: IReceipt): string[] {
+  public static Validate(props: ReceiptInterface): string[] {
     const errors: string[] = [];
 
     return errors;

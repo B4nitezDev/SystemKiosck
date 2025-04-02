@@ -89,6 +89,9 @@ export const initInventoryMovement: (sequelize: Sequelize) => void = (sequelize:
     },
   }, {
     tableName: "InventoryMovements",
+    paranoid: true,
+    deletedAt: "deletedAt",
     sequelize,
+    version: true
   })
 }

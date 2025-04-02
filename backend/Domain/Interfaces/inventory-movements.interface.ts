@@ -1,6 +1,6 @@
 ﻿import { MovementsType } from "../Enums/MovementsTpe";
 
-export interface IInventoryMovements {
+export interface InventoryMovementsInterface {
   id: number;
   date: Date;
   type: MovementsType;

@@ -1,4 +1,4 @@
-﻿export interface ISalesTransactions {
+﻿export interface SalesTransactionsInterface {
   id: number;
   kioskId: number;
   employeeId: number;

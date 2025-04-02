@@ -1,4 +1,4 @@
-﻿export interface IReceiptDetail {
+﻿export interface ReceiptDetail {
   id: number;
   receiptId: number;
   productId: number;

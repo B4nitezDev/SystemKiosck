@@ -1,7 +1,7 @@
 ﻿import { OrderStatus } from "../Enums/OrderStatus";
 import { OrderDetail } from "../Entities/OrderDetail";
 
-export interface IPurchaseOrder {
+export interface PurchaseOrderInterface {
   id: number;
   dateOrder: Date;
   providerId: number;

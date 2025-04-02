@@ -1,4 +1,4 @@
-﻿export interface IKiosk {
+﻿export interface KioskInterface {
   id: number;
   name: string;
   address?: string;

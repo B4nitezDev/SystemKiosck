@@ -1,6 +1,6 @@
 ﻿import { ReceiptStatus } from "../Enums/ReceiptStatus";
 
-export interface IReceipt {
+export interface ReceiptInterface {
   id: number;
   receiptDate: Date;
   purchaseOrderId: number;

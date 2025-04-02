@@ -1,4 +1,4 @@
-﻿export interface ICurrentInventory {
+﻿export interface CurrentInventoryInterface {
   id: number;
   kioskId: number;
   productId: number;

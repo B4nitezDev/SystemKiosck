@@ -1,6 +1,6 @@
 ﻿import { TransactionsShoppingState } from "../Enums/TransactionsShoppingState";
 
-export interface ITransactionsSales {
+export interface TransactionsSales {
   id: number;
   date: Date;
   kioskId: number;
