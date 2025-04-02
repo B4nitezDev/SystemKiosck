@@ -3,12 +3,17 @@ import { IMapper } from "./Interfaces/IUserMapper";
 
 export class GenericMapper<TSource, TDestination> implements IMapper<TSource, TDestination> {
   constructor(
-    private adapters: MapperAdapter<TSource, TDestination> = {}
+    private adapters: MapperAdapter<TSource, TDestination> = {},
+    private entityFactory?: (props: any) => TDestination
   ) {
   }
 
   map(source: TSource): TDestination {
     const destination: any = {} as TDestination;
+
+    if (this.entityFactory) {
+      return this.entityFactory(destination);
+    }
 
     for (const key in source) {
       if (!(key in this.adapters)) {

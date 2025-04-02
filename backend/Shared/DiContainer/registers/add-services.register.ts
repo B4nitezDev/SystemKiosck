@@ -1,7 +1,7 @@
 ﻿import { container, DIContainer } from "../DIContainer";
 import { IEmployeeService } from "../../../Application/Interfaces/IEmployeeService";
 import { EmployeeService } from "../../../Application/Services/EmployeeService";
-import { TYPES } from "../Tokens/Mappers/UserMapper.token";
+import { TYPES } from "../Tokens/Mappers/employee-mappers.token";
 
 export class AddServicesRegister {
   static addServices (container: DIContainer): void{
