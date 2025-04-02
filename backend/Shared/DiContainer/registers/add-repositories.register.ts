@@ -4,6 +4,6 @@ import { EmployeeModel } from "../../../Infrastructure/Database/Models/EmployeeM
 
 export class AddRepositoriesRegister {
   static addRepositories (container: DIContainer) {
-    container.registerClass("employeeRepository", GenericRepository, [EmployeeModel]);
+    container.registerFactory("employeeRepository", () => new GenericRepository(EmployeeModel));
   }
 }
