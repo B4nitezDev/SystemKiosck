@@ -1,8 +1,4 @@
-﻿import "reflect-metadata";
-
-export type Constructor<T> = new (...args: any[]) => T;
-export type Token<T> = symbol;
-export type Factory<T> = (...args: any[]) => T;
+﻿export type Factory<T> = (...args: any[]) => T;
 export type Implements<T> = {
   new (...args: any[]): T;
 };
@@ -34,7 +30,7 @@ export class DIContainer {
     }
 
     if (resolvingStack.includes(token)) {
-      const cycle = [...resolvingStack, token].map(t => this.getTokenName(t)).join(" -> ");
+      const cycle: string = [...resolvingStack, token].map(t => this.getTokenName(t)).join(" -> ");
       throw new Error(`Circular dependency detected: ${cycle}`);
     }
 
@@ -44,10 +40,10 @@ export class DIContainer {
     }
 
     resolvingStack.push(token);
-    const resolvedDeps = registration.deps.map(dep => this.resolve(dep, resolvingStack));
+    const resolvedDeps: unknown[] = registration.deps.map(dep => this.resolve(dep, resolvingStack));
     resolvingStack.pop();
 
-    const instance = registration.resolver(...resolvedDeps);
+    const instance: any = registration.resolver(...resolvedDeps);
     this.instances.set(token, instance);
     return instance;
   }
@@ -57,4 +53,4 @@ export class DIContainer {
   }
 }
 
-export const container = new DIContainer();
+export const container: DIContainer = new DIContainer();
